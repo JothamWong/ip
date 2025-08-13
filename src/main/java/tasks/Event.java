@@ -31,7 +31,7 @@ public class Event extends Task {
         }
 
         if (name.length() == 0) {
-            throw new PepeException("Empty name for event");
+            throw new PepeException("Empty name for event.");
         }
 
         StringJoiner from = new StringJoiner(" ");

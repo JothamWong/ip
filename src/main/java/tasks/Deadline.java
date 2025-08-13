@@ -28,7 +28,7 @@ public class Deadline extends Task {
         }
 
         if (name.length() == 0) {
-            throw new PepeException("Deadline's body expression is empty.");
+            throw new PepeException("Empty name for deadline.");
         }
 
         StringJoiner by = new StringJoiner(" ");
