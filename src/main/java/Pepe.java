@@ -1,5 +1,6 @@
 import command.Command;
 import command.Parser;
+import exceptions.PepeException;
 import tasks.Task;
 
 import java.util.ArrayList;
@@ -43,12 +44,13 @@ public class Pepe {
         System.out.println(welcomeMessage);
         try (Scanner scanner = new Scanner(System.in)) {
             boolean keepGoing = true;
-            String response;
             while (keepGoing) {
-                final Command command = Parser.parse(scanner.nextLine());
-                System.out.println("____________________________________________________________");
-                keepGoing = command.execute(tasks);
-                System.out.println("____________________________________________________________");
+                try {
+                    final Command command = Parser.parse(scanner.nextLine());
+                    keepGoing = command.execute(tasks);
+                } catch (PepeException e) {
+                    System.out.println(e.getMessage());
+                }
             }
         }
     }
