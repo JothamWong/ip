@@ -24,6 +24,7 @@ public class Parser {
             case "event" -> new AddToListCommand(Event.fromInput(arguments));
             case "todo" -> new AddToListCommand(Todo.fromInput(arguments));
             case "deadline" -> new AddToListCommand(Deadline.fromInput(arguments));
+            case "delete" -> DeleteCommand.fromInput(arguments);
             default -> throw new PepeException("Unknown command: " + command);
         };
     }
