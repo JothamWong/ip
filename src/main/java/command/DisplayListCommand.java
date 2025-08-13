@@ -1,18 +1,19 @@
 package command;
 
-import exceptions.PepeException;
+import misc.PepeException;
+import state.Ui;
 import tasks.Task;
 
 import java.util.List;
 
 public class DisplayListCommand implements Command {
     @Override
-    public boolean execute(List<Task> tasks) throws PepeException {
-        System.out.println(delimiter);
+    public boolean execute(Ui ui, List<Task> tasks) throws PepeException {
+        StringBuilder messageBuilder = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + ". " + tasks.get(i));
+            messageBuilder.append((i + 1) + ". " + tasks.get(i) + "\n");
         }
-        System.out.println(delimiter);
+        ui.printMessage(messageBuilder.toString());
         return true;
     }
 }

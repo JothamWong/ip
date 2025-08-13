@@ -1,6 +1,7 @@
 package command;
 
-import exceptions.PepeException;
+import misc.PepeException;
+import state.Ui;
 import tasks.Task;
 
 import java.util.List;
@@ -12,17 +13,28 @@ public class MarkCommand implements Command {
         this.markIdx = markIdx;
     }
 
+    public static MarkCommand fromInput(String[] arguments) throws PepeException {
+        int markIdx;
+        if (arguments.length != 1) {
+            throw new PepeException("Invalid number of arguments");
+        }
+        try {
+            markIdx = Integer.parseInt(arguments[0]) - 1;
+        } catch (NumberFormatException e) {
+            throw new PepeException("Invalid mark index " + arguments[0]);
+        }
+        return new MarkCommand(markIdx);
+    }
+
     @Override
-    public boolean execute(List<Task> tasks) throws PepeException {
+    public boolean execute(Ui ui, List<Task> tasks) throws PepeException {
         if (tasks.size() <= markIdx) {
             throw new PepeException("Submitted task idx is out of bounds");
         }
-        System.out.println(delimiter);
-        System.out.println("    Nice! I've marked this task as done:\n");
         Task task = tasks.get(markIdx);
         task.setDone(true);
-        System.out.println("    " + task);
-        System.out.println(delimiter);
+        String message = "    Nice! I've marked this task as done:\n    %s\n".formatted(task);
+        ui.printMessage(message);
         return true;
     }
 }

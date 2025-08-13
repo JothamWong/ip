@@ -1,6 +1,9 @@
 package command;
 
-import exceptions.PepeException;
+import misc.PepeException;
+import tasks.Event;
+import tasks.Task;
+import tasks.Todo;
 
 import java.util.Arrays;
 
@@ -15,9 +18,9 @@ public class Parser {
         return switch(command) {
             case "list" -> new DisplayListCommand();
             case "bye" -> new ByeCommand();
-            case "mark" -> new MarkCommand(Integer.parseInt(arguments[0]) - 1);
-            case "unmark" -> new UnmarkCommand(Integer.parseInt(arguments[0]) - 1);
-            default -> new AddToListCommand(input);
+            case "mark" -> MarkCommand.fromInput(arguments);
+            case "unmark" -> UnmarkCommand.fromInput(arguments);
+            default -> new AddToListCommand(new Task(input));
         };
     }
 }

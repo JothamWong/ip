@@ -1,6 +1,7 @@
 package command;
 
-import exceptions.PepeException;
+import misc.PepeException;
+import state.Ui;
 import tasks.Task;
 
 import java.util.List;
@@ -12,17 +13,28 @@ public class UnmarkCommand implements Command {
         this.unmarkIdx = unmarkIdx;
     }
 
+    public static UnmarkCommand fromInput(String[] arguments) throws PepeException {
+        int markIdx;
+        if (arguments.length != 1) {
+            throw new PepeException("Invalid number of arguments");
+        }
+        try {
+            markIdx = Integer.parseInt(arguments[0]) - 1;
+        } catch (NumberFormatException e) {
+            throw new PepeException("Invalid mark index " + arguments[0]);
+        }
+        return new UnmarkCommand(markIdx);
+    }
+
     @Override
-    public boolean execute(List<Task> tasks) throws PepeException {
+    public boolean execute(Ui ui, List<Task> tasks) throws PepeException {
         if (tasks.size() <= unmarkIdx) {
             throw new PepeException("Submitted task idx is out of bounds");
         }
-        System.out.println(delimiter);
-        System.out.println("     OK, I've marked this task as not done yet:\n");
         Task task = tasks.get(unmarkIdx);
         task.setDone(false);
-        System.out.println("    " + task);
-        System.out.println(delimiter);
+        String message = "     OK, I've marked this task as not done yet:\n    %s\n".formatted(task);
+        ui.printMessage(message);
         return true;
     }
 }
