@@ -1,5 +1,6 @@
 package command;
 
+import exceptions.PepeException;
 import tasks.Task;
 
 import java.util.List;
@@ -12,9 +13,11 @@ public class AddToListCommand implements Command {
     }
 
     @Override
-    public boolean execute(List<Task> tasks) {
+    public boolean execute(List<Task> tasks) throws PepeException {
+        System.out.println(delimiter);
         tasks.add(new Task(addInput));
         System.out.println("added: " + this.addInput);
+        System.out.println(delimiter);
         return true;
     }
 }
