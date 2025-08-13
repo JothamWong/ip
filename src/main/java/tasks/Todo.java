@@ -2,8 +2,6 @@ package tasks;
 
 import misc.PepeException;
 
-import java.util.StringJoiner;
-
 public class Todo extends Task {
     public Todo(String name) {
         super(name);

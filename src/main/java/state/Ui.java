@@ -1,8 +1,6 @@
 package state;
 
-import command.AddToListCommand;
 import misc.PepeException;
-import tasks.Task;
 
 /**
  * Class in charge of UI behaviour.

@@ -9,9 +9,8 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Pepe {
-    public static final String byeResponse = "Bye. Hope to see you again soon!";
     private static final Ui ui = new Ui();
-    private static List<Task> tasks = new ArrayList<>();
+    private static final List<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
         ui.displayWelcomeMessage();
