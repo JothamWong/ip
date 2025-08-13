@@ -20,6 +20,7 @@ public class Parser {
             case "bye" -> new ByeCommand();
             case "mark" -> MarkCommand.fromInput(arguments);
             case "unmark" -> UnmarkCommand.fromInput(arguments);
+            case "event" -> new AddToListCommand(Event.fromInput(arguments));
             default -> new AddToListCommand(new Task(input));
         };
     }
