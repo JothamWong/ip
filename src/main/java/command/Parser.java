@@ -1,6 +1,7 @@
 package command;
 
 import misc.PepeException;
+import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
 import tasks.Todo;
@@ -22,7 +23,8 @@ public class Parser {
             case "unmark" -> UnmarkCommand.fromInput(arguments);
             case "event" -> new AddToListCommand(Event.fromInput(arguments));
             case "todo" -> new AddToListCommand(Todo.fromInput(arguments));
-            default -> new AddToListCommand(new Task(input));
+            case "deadline" -> new AddToListCommand(Deadline.fromInput(arguments));
+            default -> throw new PepeException("Unknown command: " + command);
         };
     }
 }
