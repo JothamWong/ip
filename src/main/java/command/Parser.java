@@ -21,6 +21,7 @@ public class Parser {
             case "mark" -> MarkCommand.fromInput(arguments);
             case "unmark" -> UnmarkCommand.fromInput(arguments);
             case "event" -> new AddToListCommand(Event.fromInput(arguments));
+            case "todo" -> new AddToListCommand(Todo.fromInput(arguments));
             default -> new AddToListCommand(new Task(input));
         };
     }
