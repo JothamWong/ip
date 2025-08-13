@@ -48,9 +48,7 @@ public class Ui {
     }
 
     public void handleException(PepeException e) {
-        System.out.println(delimiter);
-        System.out.println(e.toString());
-        System.out.println(delimiter);
+        printMessage(e.getMessage());
     }
 
     public void printMessage(String message) {
