@@ -1,5 +1,7 @@
 package command;
 
+import tasks.Task;
+
 import java.util.List;
 
 public class AddToListCommand implements Command {
@@ -10,8 +12,8 @@ public class AddToListCommand implements Command {
     }
 
     @Override
-    public boolean execute(List<String> tasks) {
-        tasks.add(this.addInput);
+    public boolean execute(List<Task> tasks) {
+        tasks.add(new Task(addInput));
         System.out.println("added: " + this.addInput);
         return true;
     }

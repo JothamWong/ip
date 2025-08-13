@@ -1,5 +1,6 @@
 import command.Command;
 import command.Parser;
+import tasks.Task;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +8,7 @@ import java.util.Scanner;
 
 public class Pepe {
     public static final String byeResponse = "Bye. Hope to see you again soon!";
-    private static List<String> tasks = new ArrayList<>();
+    private static List<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
         String logo = "⠀⠀⢀⣠⠤⠶⠖⠒⠒⠶⠦⠤⣄⠀⠀⠀⣀⡤⠤⠤⠤⠤⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" +
