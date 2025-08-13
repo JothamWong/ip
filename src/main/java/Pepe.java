@@ -1,4 +1,8 @@
+import java.util.Scanner;
+
 public class Pepe {
+    public static final String byeResponse = "Bye. Hope to see you again soon!";
+
     public static void main(String[] args) {
         String logo = "⠀⠀⢀⣠⠤⠶⠖⠒⠒⠶⠦⠤⣄⠀⠀⠀⣀⡤⠤⠤⠤⠤⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" +
                 "⠀⣴⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠙⣦⠞⠁⠀⠀⠀⠀⠀⠀⠉⠳⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" +
@@ -27,10 +31,23 @@ public class Pepe {
                 "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⡾⢷⡄⠀⠀⠀⠀⠉⠙⠯⠀⠀⡴⠋⠀⢠⠟⠀⠀⢹⡄";
         String welcomeMessage = "____________________________________________________________\n" +
                 " What can I do for you?\n" +
-                "____________________________________________________________\n" +
-                " Bye. Hope to see you again soon!\n" +
                 "____________________________________________________________";
         System.out.println("Hello from\n" + logo);
         System.out.println(welcomeMessage);
+        try (Scanner scanner = new Scanner(System.in)) {
+            boolean keepGoing = true;
+            String response;
+            while (keepGoing) {
+                final String input = scanner.nextLine();
+                if (input.equals("bye")) {
+                    keepGoing = false;
+                    response = byeResponse;
+                } else {
+                    response = input;
+                }
+                System.out.println("____________________________________________________________\n"
+                        + response + "\n____________________________________________________________\n");
+            }
+        }
     }
 }
