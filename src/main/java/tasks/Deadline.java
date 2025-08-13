@@ -2,6 +2,8 @@ package tasks;
 
 import misc.PepeException;
 
+import java.util.StringJoiner;
+
 public class Deadline extends Task {
 
     private final String by;
@@ -14,27 +16,27 @@ public class Deadline extends Task {
     public static Deadline fromInput(String[] inputs) throws PepeException {
         int index = 0;
 
-        StringBuilder name = new StringBuilder();
+        StringJoiner name = new StringJoiner(" ");
         for (; index < inputs.length; index++) {
             String input = inputs[index];
             if (input.equals("/by")) {
                 index++; // advance past /by
                 break;
             } else {
-                name.append(input);
+                name.add(input);
             }
         }
 
-        if (name.isEmpty()) {
+        if (name.length() == 0) {
             throw new PepeException("Deadline's body expression is empty.");
         }
 
-        StringBuilder by = new StringBuilder();
+        StringJoiner by = new StringJoiner(" ");
         for (; index < inputs.length; index++) {
-            by.append(inputs[index]);
+            by.add(inputs[index]);
         }
 
-        if (by.isEmpty()) {
+        if (by.length() == 0) {
             throw new PepeException("Deadline not specified.");
         }
 
@@ -43,6 +45,6 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + "(by: " + by + ")";
+        return "[D]" + super.toString() + " (by: " + by + ")";
     }
 }

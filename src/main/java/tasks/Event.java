@@ -2,6 +2,8 @@ package tasks;
 
 import misc.PepeException;
 
+import java.util.StringJoiner;
+
 public class Event extends Task {
     private final String from;
     private final String to;
@@ -15,7 +17,7 @@ public class Event extends Task {
     public static Event fromInput(String[] inputs) throws PepeException {
         int index = 0;
 
-        StringBuilder name = new StringBuilder();
+        StringJoiner name = new StringJoiner(" ");
         for (;index < inputs.length;index++) {
             String input = inputs[index];
             if (input.equals("/from")) {
@@ -24,11 +26,15 @@ public class Event extends Task {
             } else if (input.equals("/to")) {
                 throw new PepeException("Missing /from");
             } else {
-                name.append(input);
+                name.add(input);
             }
         }
 
-        StringBuilder from = new StringBuilder();
+        if (name.length() == 0) {
+            throw new PepeException("Empty name for event");
+        }
+
+        StringJoiner from = new StringJoiner(" ");
         for (;index < inputs.length;index++) {
             String input = inputs[index];
             if (input.equals("/from")) {
@@ -37,15 +43,15 @@ public class Event extends Task {
                 index++; // advance past /to
                 break;
             } else {
-                from.append(input);
+                from.add(input);
             }
         }
 
-        if (from.isEmpty()) {
+        if (from.length() == 0) {
             throw new PepeException("Missing /from body");
         }
 
-        StringBuilder to = new StringBuilder();
+        StringJoiner to = new StringJoiner(" ");
         for (;index < inputs.length;index++) {
             String input = inputs[index];
             if (input.equals("/from")) {
@@ -53,11 +59,11 @@ public class Event extends Task {
             } else if (input.equals("/to")) {
                 throw new PepeException("Duplicate /to");
             } else {
-                to.append(input);
+                to.add(input);
             }
         }
 
-        if (to.isEmpty()) {
+        if (to.length() == 0) {
             throw new PepeException("Missing /to body");
         }
 
@@ -66,6 +72,6 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + "(from: " + from + "to: " + to + ")";
+        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
     }
 }
