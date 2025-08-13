@@ -1,7 +1,13 @@
+import command.Command;
+import command.Parser;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Pepe {
     public static final String byeResponse = "Bye. Hope to see you again soon!";
+    private static List<String> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
         String logo = "⠀⠀⢀⣠⠤⠶⠖⠒⠒⠶⠦⠤⣄⠀⠀⠀⣀⡤⠤⠤⠤⠤⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" +
@@ -38,15 +44,10 @@ public class Pepe {
             boolean keepGoing = true;
             String response;
             while (keepGoing) {
-                final String input = scanner.nextLine();
-                if (input.equals("bye")) {
-                    keepGoing = false;
-                    response = byeResponse;
-                } else {
-                    response = input;
-                }
-                System.out.println("____________________________________________________________\n"
-                        + response + "\n____________________________________________________________\n");
+                final Command command = Parser.parse(scanner.nextLine());
+                System.out.println("____________________________________________________________");
+                keepGoing = command.execute(tasks);
+                System.out.println("____________________________________________________________");
             }
         }
     }
