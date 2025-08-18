@@ -43,10 +43,9 @@ public class Deadline extends Task {
 
         // 0 1 2
         // /by m d
-        // Deadline format is expected to be in yyyy-mm-dd TIME
-        // Time in 2359 format
+        // Deadline format is expected to be in yyyy-MM-dd HHmm
         if (index + 1 > inputs.length) {
-            throw new PepeException("Expected deadline date formatted string yyyy-mm-dd HHmm.");
+            throw new PepeException("Expected deadline date formatted string yyyy-MM-dd HHmm.");
         }
         String deadlineString = inputs[index++] + inputs[index];
         LocalDateTime byTimeObject = LocalDateTime.parse(deadlineString, serdeFormatter);
