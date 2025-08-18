@@ -2,6 +2,7 @@ package tasks;
 
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.StringJoiner;
 
 import misc.PepeException;
@@ -105,5 +106,19 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by.format(USER_FORMATTER) + ")";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Deadline deadline = (Deadline) o;
+        return Objects.equals(by, deadline.by);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(by);
     }
 }
