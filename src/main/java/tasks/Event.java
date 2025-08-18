@@ -2,17 +2,18 @@ package tasks;
 
 import misc.PepeException;
 
+import java.time.LocalDateTime;
 import java.util.StringJoiner;
 
 public class Event extends Task {
-    private final String from;
-    private final String to;
+    private final LocalDateTime from;
+    private final LocalDateTime to;
 
-    public Event(String name, String from, String to) {
+    public Event(String name, LocalDateTime from, LocalDateTime to) {
         this(name, from, to, false);
     }
 
-    private Event(String name, String from, String to, boolean isDone) {
+    private Event(String name, LocalDateTime from, LocalDateTime to, boolean isDone) {
         super(name, isDone);
         this.from = from;
         this.to = to;
@@ -38,46 +39,32 @@ public class Event extends Task {
             throw new PepeException("Empty name for event.");
         }
 
-        StringJoiner from = new StringJoiner(" ");
-        for (;index < inputs.length;index++) {
-            String input = inputs[index];
-            if (input.equals("/from")) {
-                throw new PepeException("Duplicate /from");
-            } else if (input.equals("/to")) {
-                index++; // advance past /to
-                break;
-            } else {
-                from.add(input);
-            }
+        // Expect yyyy-MM-dd HHmm after /from
+        if (index + 2 > inputs.length) {
+            throw new PepeException("Expected /from date formatted string yyyy-MM-dd HHmm.");
+        }
+        String fromString = inputs[index++] + " " + inputs[index++];
+        LocalDateTime fromDate = LocalDateTime.parse(fromString, serdeFormatter);
+
+        if (!inputs[index].equals("/to")) {
+            throw new PepeException("Expected /to but got " + inputs[index]);
         }
 
-        if (from.length() == 0) {
-            throw new PepeException("Missing /from body");
+        index++; // skip /to
+        // Expect yyyy-MM-dd HHmm after /to
+        if (index + 2 > inputs.length) {
+            throw new PepeException("Expected /to date formatted string yyyy-MM-dd HH:mm");
         }
+        String toString = inputs[index++] + " " + inputs[index];
+        LocalDateTime toDate = LocalDateTime.parse(toString, serdeFormatter);
 
-        StringJoiner to = new StringJoiner(" ");
-        for (;index < inputs.length;index++) {
-            String input = inputs[index];
-            if (input.equals("/from")) {
-                throw new PepeException("Duplicate /from");
-            } else if (input.equals("/to")) {
-                throw new PepeException("Duplicate /to");
-            } else {
-                to.add(input);
-            }
-        }
-
-        if (to.length() == 0) {
-            throw new PepeException("Missing /to body");
-        }
-
-        return new Event(name.toString(), from.toString(), to.toString());
+        return new Event(name.toString(), fromDate, toDate);
     }
 
     /**
      * Deserialize Event fromFileInput.
      * Expected format is {Type} | {Active} | {Name} | {From} | {To}
-     * Example: E | 0 | project meeting | Aug 6th 2pm | Aug 6th 4pm
+     * Example: E | 0 | project meeting | 2019-08-6 1400 | 2019-08-6 1600
      * @param inputs List of file inputs delimited by |
      * @return a deserialized Event object
      * @throws PepeException in event of parse error
@@ -108,7 +95,10 @@ public class Event extends Task {
             throw new PepeException("Empty event to.");
         }
 
-        return new Event(inputs[2], inputs[3], inputs[4], isDone);
+        LocalDateTime fromObject = LocalDateTime.parse(inputs[3], serdeFormatter);
+        LocalDateTime toObject = LocalDateTime.parse(inputs[4], serdeFormatter);
+
+        return new Event(inputs[2], fromObject, toObject, isDone);
     }
 
     /**
@@ -117,11 +107,11 @@ public class Event extends Task {
      */
     @Override
     public String toFileInput() {
-        return String.format("E | %s | %s | %s | %s", this.getStatusFileIcon(), this.getName(), from, to);
+        return String.format("E | %s | %s | %s | %s", this.getStatusFileIcon(), this.getName(), from.format(serdeFormatter), to.format(serdeFormatter));
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        return "[E]" + super.toString() + " (from: " + from.format(userFormatter) + " to: " + to.format(userFormatter) + ")";
     }
 }
