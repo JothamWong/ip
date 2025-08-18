@@ -1,6 +1,7 @@
 package command;
 
 import misc.PepeException;
+import state.Storage;
 import state.Ui;
 import tasks.Task;
 
@@ -27,12 +28,13 @@ public class UnmarkCommand implements Command {
     }
 
     @Override
-    public boolean execute(Ui ui, List<Task> tasks) throws PepeException {
+    public boolean execute(Ui ui, Storage storage, List<Task> tasks) throws PepeException {
         if (tasks.size() <= unmarkIdx) {
             throw new PepeException("Submitted task idx is out of bounds");
         }
         Task task = tasks.get(unmarkIdx);
         task.setDone(false);
+        storage.saveTasks(tasks);
         String message = "     OK, I've marked this task as not done yet:\n    %s\n".formatted(task);
         ui.printMessage(message);
         return true;

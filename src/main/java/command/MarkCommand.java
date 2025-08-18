@@ -1,6 +1,7 @@
 package command;
 
 import misc.PepeException;
+import state.Storage;
 import state.Ui;
 import tasks.Task;
 
@@ -27,12 +28,13 @@ public class MarkCommand implements Command {
     }
 
     @Override
-    public boolean execute(Ui ui, List<Task> tasks) throws PepeException {
+    public boolean execute(Ui ui, Storage storage, List<Task> tasks) throws PepeException {
         if (tasks.size() <= markIdx) {
             throw new PepeException("Submitted task idx is out of bounds");
         }
         Task task = tasks.get(markIdx);
         task.setDone(true);
+        storage.saveTasks(tasks);
         String message = "    Nice! I've marked this task as done:\n    %s\n".formatted(task);
         ui.printMessage(message);
         return true;

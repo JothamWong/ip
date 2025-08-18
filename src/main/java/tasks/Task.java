@@ -4,9 +4,13 @@ public abstract class Task {
     private final String name;
     private boolean isDone;
 
-    public Task(String name) {
+    protected Task(String name) {
+        this(name, false);
+    }
+
+    protected Task(String name, boolean isDone) {
         this.name = name;
-        this.isDone = false;
+        this.isDone = isDone;
     }
 
     public void setDone(boolean done) {
@@ -16,6 +20,20 @@ public abstract class Task {
     public String getStatusIcon() {
         return this.isDone ? "X" : " ";
     }
+
+    public String getStatusFileIcon() {
+        return this.isDone ? "1" : "0";
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    /**
+     * Serializes the Task class into a string suitable for saving to the file.
+     * @return the serialized string for file saving.
+     */
+    public abstract String toFileInput();
 
     @Override
     public String toString() {
