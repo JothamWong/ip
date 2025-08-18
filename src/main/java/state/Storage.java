@@ -36,7 +36,7 @@ public class Storage {
         }
     }
 
-    public void saveTasks(List<Task> tasks) throws PepeException {
+    public void saveTasks(TaskList tasks) throws PepeException {
         Path path = Paths.get(this.path);
         try (BufferedWriter writer = Files.newBufferedWriter(path)){
             for (Task task : tasks) {
