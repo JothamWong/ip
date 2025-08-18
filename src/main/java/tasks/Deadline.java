@@ -11,8 +11,6 @@ public class Deadline extends Task {
 
     private final LocalDateTime by;
 
-    private static final DateTimeFormatter serdeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-    private static final DateTimeFormatter userFormatter = DateTimeFormatter.ofPattern("MMM d yyyy HH:mm");
 
     public Deadline(String name, LocalDateTime by) {
         this(name, by, false);
@@ -47,7 +45,7 @@ public class Deadline extends Task {
         if (index + 1 > inputs.length) {
             throw new PepeException("Expected deadline date formatted string yyyy-MM-dd HHmm.");
         }
-        String deadlineString = inputs[index++] + inputs[index];
+        String deadlineString = inputs[index++] + " " + inputs[index];
         LocalDateTime byTimeObject = LocalDateTime.parse(deadlineString, serdeFormatter);
 
         return new Deadline(name.toString(), byTimeObject);
@@ -82,7 +80,6 @@ public class Deadline extends Task {
             throw new PepeException("Empty deadline by.");
         }
 
-        System.out.println(inputs[3]);
         LocalDateTime byTimeObject = LocalDateTime.parse(inputs[3], serdeFormatter);
 
         return new Deadline(inputs[2], byTimeObject, isDone);
@@ -94,7 +91,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toFileInput() {
-        return String.format("D | %s | %s | %s", this.getStatusFileIcon(), this.getName(), by);
+        return String.format("D | %s | %s | %s", this.getStatusFileIcon(), this.getName(), by.format(serdeFormatter));
     }
 
     @Override
