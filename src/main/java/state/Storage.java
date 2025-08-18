@@ -1,16 +1,19 @@
 package state;
 
-import misc.PepeException;
-import tasks.Task;
-
 import java.io.BufferedWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
+import misc.PepeException;
+import tasks.Task;
+
+/**
+ * Class in charge of file I/O.
+ */
 public class Storage {
     private final String path;
 
@@ -36,9 +39,14 @@ public class Storage {
         }
     }
 
+    /**
+     * Save the task list into the specified file path.
+     * @param tasks The list of tasks to save from a Pepe session.
+     * @throws PepeException if an error occurred while saving.
+     */
     public void saveTasks(TaskList tasks) throws PepeException {
         Path path = Paths.get(this.path);
-        try (BufferedWriter writer = Files.newBufferedWriter(path)){
+        try (BufferedWriter writer = Files.newBufferedWriter(path)) {
             for (Task task : tasks) {
                 writer.write(task.toFileInput());
                 writer.newLine();

@@ -39,7 +39,9 @@ public class Ui {
 
     private final String delimiter = "____________________________________________________________";
 
-
+    /**
+     * Displays the welcome message with the Pepe banner.
+     */
     public void displayWelcomeMessage() {
         System.out.println("Hello from\n" + logo);
         System.out.println(welcomeMessage);
@@ -49,6 +51,10 @@ public class Ui {
         printMessage(e.getMessage());
     }
 
+    /**
+     * Prints a message from a command to the UI.
+     * @param message a message that a command wants to display.
+     */
     public void printMessage(String message) {
         System.out.println(delimiter);
         System.out.println(message);

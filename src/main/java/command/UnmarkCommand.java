@@ -6,6 +6,9 @@ import state.TaskList;
 import state.Ui;
 import tasks.Task;
 
+/**
+ * Command to mark a task in the task list as done.
+ */
 public class UnmarkCommand implements Command {
     private final int unmarkIdx;
 
@@ -13,6 +16,12 @@ public class UnmarkCommand implements Command {
         this.unmarkIdx = unmarkIdx;
     }
 
+    /**
+     * Factory method to construct a UnmarkCommand class from the user input
+     * @param arguments A list of user-input strings
+     * @return An instance of the UnmarkCommand object
+     * @throws PepeException if an exception occurred while parsing user input or constructing UnmarkCommand class
+     */
     public static UnmarkCommand fromInput(String[] arguments) throws PepeException {
         int markIdx;
         if (arguments.length != 1) {

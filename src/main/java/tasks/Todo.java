@@ -2,6 +2,9 @@ package tasks;
 
 import misc.PepeException;
 
+/**
+ * Class representing a task without a specified deadline or duration.
+ */
 public class Todo extends Task {
     public Todo(String name) {
         super(name, false);
@@ -11,6 +14,12 @@ public class Todo extends Task {
         super(name, isDone);
     }
 
+    /**
+     * Factory method to construct a Todo class from the user input
+     * @param inputs A list of user-input strings
+     * @return An instance of the Todo object
+     * @throws PepeException if an exception occurred while parsing user input or constructing Todo class
+     */
     public static Todo fromInput(String[] inputs) throws PepeException {
         if (inputs.length == 0) {
             throw new PepeException("Empty name for todo.");

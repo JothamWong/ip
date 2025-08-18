@@ -5,6 +5,9 @@ import state.Storage;
 import state.TaskList;
 import state.Ui;
 
+/**
+ * Command that terminates the current Pepe session.
+ */
 public class ByeCommand implements Command {
     private static final String byeResponse = "Bye. Hope to see you again soon!";
 

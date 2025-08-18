@@ -5,6 +5,9 @@ import state.Storage;
 import state.TaskList;
 import state.Ui;
 
+/**
+ * Base interface that all user interaction with Pepe implements.
+ */
 public interface Command {
     /**
      * Executes the command and returns true if the program should continue
