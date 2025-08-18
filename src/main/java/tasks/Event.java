@@ -111,6 +111,15 @@ public class Event extends Task {
         return new Event(inputs[2], inputs[3], inputs[4], isDone);
     }
 
+    /**
+     * Serializes the Event class into a string suitable for saving to the file.
+     * @return the serialized string for file saving.
+     */
+    @Override
+    public String toFileInput() {
+        return String.format("E | %s | %s | %s | %s", this.getStatusFileIcon(), this.getName(), from, to);
+    }
+
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";

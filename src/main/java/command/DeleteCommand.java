@@ -1,6 +1,7 @@
 package command;
 
 import misc.PepeException;
+import state.Storage;
 import state.Ui;
 import tasks.Task;
 
@@ -27,12 +28,13 @@ public class DeleteCommand implements Command {
     }
 
     @Override
-    public boolean execute(Ui ui, List<Task> tasks) throws PepeException {
+    public boolean execute(Ui ui, Storage storage, List<Task> tasks) throws PepeException {
         if (tasks.size() <= deleteIdx) {
             throw new PepeException("Submitted task idx is out of bounds");
         }
         Task task = tasks.get(deleteIdx);
         tasks.remove(deleteIdx);
+        storage.saveTasks(tasks);
         String message = "Noted. I've removed this task:\n  %s\nNow you have %d tasks in the list.\n".formatted(task, tasks.size());
         ui.printMessage(message);
         return true;

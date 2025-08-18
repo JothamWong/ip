@@ -2,8 +2,6 @@ package tasks;
 
 import misc.PepeException;
 
-import java.util.Arrays;
-
 public class Todo extends Task {
     public Todo(String name) {
         super(name, false);
@@ -47,6 +45,15 @@ public class Todo extends Task {
         }
 
         return new Todo(inputs[2], isDone);
+    }
+
+    /**
+     * Serializes the Todo class into a string suitable for saving to the file.
+     * @return the serialized string for file saving.
+     */
+    @Override
+    public String toFileInput() {
+        return String.format("T | %s | %s", this.getStatusFileIcon(), this.getName());
     }
 
     @Override

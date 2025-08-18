@@ -79,6 +79,15 @@ public class Deadline extends Task {
         return new Deadline(inputs[2], inputs[3], isDone);
     }
 
+    /**
+     * Serializes the Deadline class into a string suitable for saving to the file.
+     * @return the serialized string for file saving.
+     */
+    @Override
+    public String toFileInput() {
+        return String.format("D | %s | %s | %s", this.getStatusFileIcon(), this.getName(), by);
+    }
+
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";

@@ -3,6 +3,7 @@ package state;
 import misc.PepeException;
 import tasks.Task;
 
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +36,15 @@ public class Storage {
         }
     }
 
-
-
+    public void saveTasks(List<Task> tasks) throws PepeException {
+        Path path = Paths.get(this.path);
+        try (BufferedWriter writer = Files.newBufferedWriter(path)){
+            for (Task task : tasks) {
+                writer.write(task.toFileInput());
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            throw new PepeException("Error while saving tasks in " + this.path + " : " + e.getMessage());
+        }
+    }
 }

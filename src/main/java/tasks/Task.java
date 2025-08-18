@@ -21,6 +21,20 @@ public abstract class Task {
         return this.isDone ? "X" : " ";
     }
 
+    public String getStatusFileIcon() {
+        return this.isDone ? "1" : "0";
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    /**
+     * Serializes the Task class into a string suitable for saving to the file.
+     * @return the serialized string for file saving.
+     */
+    public abstract String toFileInput();
+
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + this.name;
