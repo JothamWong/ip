@@ -43,7 +43,7 @@ public class Pepe {
 
     public static void main(String[] args) {
         // Hardcoded path. Will change if receive complaints
-        pepe = new Pepe("./data/pepe.text");
+        pepe = new Pepe("./data/pepe.txt");
         pepe.run();
     }
 }

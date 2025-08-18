@@ -2,9 +2,15 @@ package tasks;
 
 import misc.PepeException;
 
+import java.util.Arrays;
+
 public class Todo extends Task {
     public Todo(String name) {
-        super(name);
+        super(name, false);
+    }
+
+    private Todo(String name, boolean isDone) {
+        super(name, isDone);
     }
 
     public static Todo fromInput(String[] inputs) throws PepeException {
@@ -12,6 +18,35 @@ public class Todo extends Task {
             throw new PepeException("Empty name for todo.");
         }
         return new Todo(String.join(" ", inputs));
+    }
+
+    /**
+     * Deserialize Todo fromFileInput.
+     * Expected format is {Type} | {Active} | {Name}
+     * Example: T | 1 | read book
+     * @param inputs List of file inputs delimited by |
+     * @return a deserialized Todo object
+     * @throws PepeException in event of parse error
+     */
+    public static Todo fromFileInput(String[] inputs) throws PepeException {
+        if (inputs.length != 3) {
+            throw new PepeException("Invalid number of arguments. Expected 3 but got " + inputs.length);
+        }
+
+        boolean isDone;
+        if (inputs[1].equals("0")) {
+            isDone = false;
+        } else if (inputs[1].equals("1")) {
+            isDone = true;
+        } else {
+            throw new PepeException("Invalid event format. Expected 1 or 0 for second argument but got " + inputs[1]);
+        }
+
+        if (inputs[2].isEmpty()) {
+            throw new PepeException("Empty todo name.");
+        }
+
+        return new Todo(inputs[2], isDone);
     }
 
     @Override

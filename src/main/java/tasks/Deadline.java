@@ -9,7 +9,11 @@ public class Deadline extends Task {
     private final String by;
 
     public Deadline(String name, String by) {
-        super(name);
+        this(name, by, false);
+    }
+
+    private Deadline(String name, String by, boolean isDone) {
+        super(name, isDone);
         this.by = by;
     }
 
@@ -41,6 +45,38 @@ public class Deadline extends Task {
         }
 
         return new Deadline(name.toString(), by.toString());
+    }
+
+    /**
+     * Deserialize Deadline fromFileInput.
+     * Expected format is {Type} | {Active} | {Name} | {Deadline}
+     * @param inputs List of file inputs delimited by |
+     * @return a deserialized Deadline object
+     * @throws PepeException in event of parse error
+     */
+    public static Deadline fromFileInput(String[] inputs) throws PepeException {
+        if (inputs.length != 4) {
+            throw new PepeException("Invalid number of arguments.");
+        }
+
+        boolean isDone;
+        if (inputs[1].equals("0")) {
+            isDone = false;
+        } else if (inputs[1].equals("1")) {
+            isDone = true;
+        } else {
+            throw new PepeException("Invalid deadline format. Expected 1 or 0 for second argument but got " + inputs[1]);
+        }
+
+        if (inputs[2].isEmpty()) {
+            throw new PepeException("Empty deadline name.");
+        }
+
+        if (inputs[3].isEmpty()) {
+            throw new PepeException("Empty deadline by.");
+        }
+
+        return new Deadline(inputs[2], inputs[3], isDone);
     }
 
     @Override

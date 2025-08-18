@@ -9,7 +9,11 @@ public class Event extends Task {
     private final String to;
 
     public Event(String name, String from, String to) {
-        super(name);
+        this(name, from, to, false);
+    }
+
+    private Event(String name, String from, String to, boolean isDone) {
+        super(name, isDone);
         this.from = from;
         this.to = to;
     }
@@ -68,6 +72,43 @@ public class Event extends Task {
         }
 
         return new Event(name.toString(), from.toString(), to.toString());
+    }
+
+    /**
+     * Deserialize Event fromFileInput.
+     * Expected format is {Type} | {Active} | {Name} | {From} | {To}
+     * Example: E | 0 | project meeting | Aug 6th 2pm | Aug 6th 4pm
+     * @param inputs List of file inputs delimited by |
+     * @return a deserialized Event object
+     * @throws PepeException in event of parse error
+     */
+    public static Event fromFileInput(String[] inputs) throws PepeException {
+        if (inputs.length != 5) {
+            throw new PepeException("Invalid number of arguments.");
+        }
+
+        boolean isDone;
+        if (inputs[1].equals("0")) {
+            isDone = false;
+        } else if (inputs[1].equals("1")) {
+            isDone = true;
+        } else {
+            throw new PepeException("Invalid event format. Expected 1 or 0 for second argument but got " + inputs[1]);
+        }
+
+        if (inputs[2].isEmpty()) {
+            throw new PepeException("Empty event name.");
+        }
+
+        if (inputs[3].isEmpty()) {
+            throw new PepeException("Empty event from.");
+        }
+
+        if (inputs[4].isEmpty()) {
+            throw new PepeException("Empty event to.");
+        }
+
+        return new Event(inputs[2], inputs[3], inputs[4], isDone);
     }
 
     @Override

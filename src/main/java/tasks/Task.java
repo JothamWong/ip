@@ -4,9 +4,13 @@ public abstract class Task {
     private final String name;
     private boolean isDone;
 
-    public Task(String name) {
+    protected Task(String name) {
+        this(name, false);
+    }
+
+    protected Task(String name, boolean isDone) {
         this.name = name;
-        this.isDone = false;
+        this.isDone = isDone;
     }
 
     public void setDone(boolean done) {

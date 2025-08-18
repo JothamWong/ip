@@ -22,7 +22,17 @@ public class Storage {
      * @return list of tasks stored at the specified file path
      */
     public List<Task> getTasks() {
-        return new ArrayList<>();
+        Path path = Paths.get(this.path);
+        if (!Files.exists(path)) {
+            return new ArrayList<>();
+        }
+        try {
+            List<String> lines = Files.readAllLines(path);
+            return Serderializer.deserializeTasks(lines);
+        } catch (IOException | PepeException e) {
+            System.out.println("Error while reading tasks from " + this.path + " : " + e.getMessage());
+            return new ArrayList<>();
+        }
     }
 
 
