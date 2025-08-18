@@ -23,8 +23,15 @@ public class DeadlineTest {
     }
 
     @Test
-    public void testDeadlineFailInput() {
+    public void testDeadlineFailInputMinutes() {
         String userInput = "meet Pepe /by 2025-08-16 140";
         assertThrows(DateTimeParseException.class, () -> Deadline.fromInput(userInput.split(" ")));
+    }
+
+    @Test
+    public void testDeadlineFailNoByClause() {
+        String userInput = "meet Pepe /from 2025-08-16 140";
+        PepeException pepeException = assertThrows(PepeException.class, () -> Deadline.fromInput(userInput.split(" ")));
+        assertTrue(pepeException.getMessage().contains("Expected deadline date formatted string yyyy-MM-dd HHmm."));
     }
 }
