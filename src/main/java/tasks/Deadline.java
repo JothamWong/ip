@@ -2,17 +2,23 @@ package tasks;
 
 import misc.PepeException;
 
+import java.time.LocalDateTime;
 import java.util.StringJoiner;
+
+import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
 
-    private final String by;
+    private final LocalDateTime by;
 
-    public Deadline(String name, String by) {
+    private static final DateTimeFormatter serdeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    private static final DateTimeFormatter userFormatter = DateTimeFormatter.ofPattern("MMM d yyyy HH:mm");
+
+    public Deadline(String name, LocalDateTime by) {
         this(name, by, false);
     }
 
-    private Deadline(String name, String by, boolean isDone) {
+    private Deadline(String name, LocalDateTime by, boolean isDone) {
         super(name, isDone);
         this.by = by;
     }
@@ -35,16 +41,17 @@ public class Deadline extends Task {
             throw new PepeException("Empty name for deadline.");
         }
 
-        StringJoiner by = new StringJoiner(" ");
-        for (; index < inputs.length; index++) {
-            by.add(inputs[index]);
+        // 0 1 2
+        // /by m d
+        // Deadline format is expected to be in yyyy-mm-dd TIME
+        // Time in 2359 format
+        if (index + 1 > inputs.length) {
+            throw new PepeException("Expected deadline date formatted string yyyy-mm-dd HHmm.");
         }
+        String deadlineString = inputs[index++] + inputs[index];
+        LocalDateTime byTimeObject = LocalDateTime.parse(deadlineString, serdeFormatter);
 
-        if (by.length() == 0) {
-            throw new PepeException("Deadline not specified.");
-        }
-
-        return new Deadline(name.toString(), by.toString());
+        return new Deadline(name.toString(), byTimeObject);
     }
 
     /**
@@ -76,7 +83,10 @@ public class Deadline extends Task {
             throw new PepeException("Empty deadline by.");
         }
 
-        return new Deadline(inputs[2], inputs[3], isDone);
+        System.out.println(inputs[3]);
+        LocalDateTime byTimeObject = LocalDateTime.parse(inputs[3], serdeFormatter);
+
+        return new Deadline(inputs[2], byTimeObject, isDone);
     }
 
     /**
@@ -90,6 +100,6 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D]" + super.toString() + " (by: " + by.format(userFormatter) + ")";
     }
 }
