@@ -6,6 +6,9 @@ import state.TaskList;
 import state.Ui;
 import tasks.Task;
 
+/**
+ * Command to delete a task from the TaskList.
+ */
 public class DeleteCommand implements Command {
     private final int deleteIdx;
 
@@ -13,6 +16,12 @@ public class DeleteCommand implements Command {
         this.deleteIdx = deleteIdx;
     }
 
+    /**
+     * Factory method to construct a DeleteCommand from the user input
+     * @param arguments A list of user-input strings
+     * @return An instance of the DeleteCommand
+     * @throws PepeException if an exception occurred while parsing user input or constructing DeleteCommand class
+     */
     public static DeleteCommand fromInput(String[] arguments) throws PepeException {
         int deleteIdx;
         if (arguments.length != 1) {
@@ -34,7 +43,8 @@ public class DeleteCommand implements Command {
         Task task = tasks.get(deleteIdx);
         tasks.remove(deleteIdx);
         storage.saveTasks(tasks);
-        String message = "Noted. I've removed this task:\n  %s\nNow you have %d tasks in the list.\n".formatted(task, tasks.size());
+        String message = "Noted. I've removed this task:\n  %s\nNow you have %d tasks in the list.\n".formatted(task,
+                tasks.size());
         ui.printMessage(message);
         return true;
     }

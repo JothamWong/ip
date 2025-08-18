@@ -1,12 +1,14 @@
 package tasks;
 
-import misc.PepeException;
 
 import java.time.LocalDateTime;
 import java.util.StringJoiner;
 
-import java.time.format.DateTimeFormatter;
+import misc.PepeException;
 
+/**
+ * Deadline class that wraps a by datetime for the Task class.
+ */
 public class Deadline extends Task {
 
     private final LocalDateTime by;
@@ -21,6 +23,12 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    /**
+     * Factory method to construct a Deadline class from the user input
+     * @param inputs A list of user-input strings
+     * @return An instance of the Deadline object
+     * @throws PepeException if an exception occurred while parsing user input or constructing Deadline class
+     */
     public static Deadline fromInput(String[] inputs) throws PepeException {
         int index = 0;
 
@@ -46,7 +54,7 @@ public class Deadline extends Task {
             throw new PepeException("Expected deadline date formatted string yyyy-MM-dd HHmm.");
         }
         String deadlineString = inputs[index++] + " " + inputs[index];
-        LocalDateTime byTimeObject = LocalDateTime.parse(deadlineString, serdeFormatter);
+        LocalDateTime byTimeObject = LocalDateTime.parse(deadlineString, SERDE_FORMATTER);
 
         return new Deadline(name.toString(), byTimeObject);
     }
@@ -69,7 +77,7 @@ public class Deadline extends Task {
         } else if (inputs[1].equals("1")) {
             isDone = true;
         } else {
-            throw new PepeException("Invalid deadline format. Expected 1 or 0 for second argument but got " + inputs[1]);
+            throw new PepeException("Invalid deadline format. Expected 1/0 for second argument but got " + inputs[1]);
         }
 
         if (inputs[2].isEmpty()) {
@@ -80,7 +88,7 @@ public class Deadline extends Task {
             throw new PepeException("Empty deadline by.");
         }
 
-        LocalDateTime byTimeObject = LocalDateTime.parse(inputs[3], serdeFormatter);
+        LocalDateTime byTimeObject = LocalDateTime.parse(inputs[3], SERDE_FORMATTER);
 
         return new Deadline(inputs[2], byTimeObject, isDone);
     }
@@ -91,11 +99,11 @@ public class Deadline extends Task {
      */
     @Override
     public String toFileInput() {
-        return String.format("D | %s | %s | %s", this.getStatusFileIcon(), this.getName(), by.format(serdeFormatter));
+        return String.format("D | %s | %s | %s", this.getStatusFileIcon(), this.getName(), by.format(SERDE_FORMATTER));
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by.format(userFormatter) + ")";
+        return "[D]" + super.toString() + " (by: " + by.format(USER_FORMATTER) + ")";
     }
 }

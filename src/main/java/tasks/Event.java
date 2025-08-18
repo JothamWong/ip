@@ -1,10 +1,14 @@
 package tasks;
 
-import misc.PepeException;
 
 import java.time.LocalDateTime;
 import java.util.StringJoiner;
 
+import misc.PepeException;
+
+/**
+ * Event class that wraps a from and a to duration for the Task class.
+ */
 public class Event extends Task {
     private final LocalDateTime from;
     private final LocalDateTime to;
@@ -19,11 +23,17 @@ public class Event extends Task {
         this.to = to;
     }
 
+    /**
+     * Factory method to construct an Event class from the user input
+     * @param inputs A list of user-input strings
+     * @return An instance of the Event object
+     * @throws PepeException if an exception occurred while parsing user input or constructing Event class
+     */
     public static Event fromInput(String[] inputs) throws PepeException {
         int index = 0;
 
         StringJoiner name = new StringJoiner(" ");
-        for (;index < inputs.length;index++) {
+        for (; index < inputs.length; index++) {
             String input = inputs[index];
             if (input.equals("/from")) {
                 index++; // advance past /from
@@ -44,7 +54,7 @@ public class Event extends Task {
             throw new PepeException("Expected /from date formatted string yyyy-MM-dd HHmm.");
         }
         String fromString = inputs[index++] + " " + inputs[index++];
-        LocalDateTime fromDate = LocalDateTime.parse(fromString, serdeFormatter);
+        LocalDateTime fromDate = LocalDateTime.parse(fromString, SERDE_FORMATTER);
 
         if (!inputs[index].equals("/to")) {
             throw new PepeException("Expected /to but got " + inputs[index]);
@@ -56,7 +66,7 @@ public class Event extends Task {
             throw new PepeException("Expected /to date formatted string yyyy-MM-dd HH:mm");
         }
         String toString = inputs[index++] + " " + inputs[index];
-        LocalDateTime toDate = LocalDateTime.parse(toString, serdeFormatter);
+        LocalDateTime toDate = LocalDateTime.parse(toString, SERDE_FORMATTER);
 
         return new Event(name.toString(), fromDate, toDate);
     }
@@ -95,8 +105,8 @@ public class Event extends Task {
             throw new PepeException("Empty event to.");
         }
 
-        LocalDateTime fromObject = LocalDateTime.parse(inputs[3], serdeFormatter);
-        LocalDateTime toObject = LocalDateTime.parse(inputs[4], serdeFormatter);
+        LocalDateTime fromObject = LocalDateTime.parse(inputs[3], SERDE_FORMATTER);
+        LocalDateTime toObject = LocalDateTime.parse(inputs[4], SERDE_FORMATTER);
 
         return new Event(inputs[2], fromObject, toObject, isDone);
     }
@@ -107,11 +117,18 @@ public class Event extends Task {
      */
     @Override
     public String toFileInput() {
-        return String.format("E | %s | %s | %s | %s", this.getStatusFileIcon(), this.getName(), from.format(serdeFormatter), to.format(serdeFormatter));
+        return String.format("E | %s | %s | %s | %s",
+                this.getStatusFileIcon(),
+                this.getName(),
+                from.format(SERDE_FORMATTER),
+                to.format(SERDE_FORMATTER));
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from.format(userFormatter) + " to: " + to.format(userFormatter) + ")";
+        return String.format("[E]%s (from: %s to: %s)",
+                super.toString(),
+                from.format(USER_FORMATTER),
+                to.format(USER_FORMATTER));
     }
 }

@@ -6,6 +6,9 @@ import state.TaskList;
 import state.Ui;
 import tasks.Task;
 
+/**
+ * Command to mark a task in the task list as done.
+ */
 public class MarkCommand implements Command {
     private final int markIdx;
 
@@ -13,6 +16,12 @@ public class MarkCommand implements Command {
         this.markIdx = markIdx;
     }
 
+    /**
+     * Factory method to construct a MarkCommand class from the user input
+     * @param arguments A list of user-input strings
+     * @return An instance of the MarkCommand object
+     * @throws PepeException if an exception occurred while parsing user input or constructing MarkCommand class
+     */
     public static MarkCommand fromInput(String[] arguments) throws PepeException {
         int markIdx;
         if (arguments.length != 1) {

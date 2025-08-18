@@ -2,13 +2,15 @@ package tasks;
 
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Abstract class representing a Task in our Pepe application.
+ */
 public abstract class Task {
+    protected static final DateTimeFormatter SERDE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    protected static final DateTimeFormatter USER_FORMATTER = DateTimeFormatter.ofPattern("MMM d yyyy HH:mm");
+
     private final String name;
     private boolean isDone;
-
-    protected static final DateTimeFormatter serdeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-    protected static final DateTimeFormatter userFormatter = DateTimeFormatter.ofPattern("MMM d yyyy HH:mm");
-
 
     protected Task(String name) {
         this(name, false);

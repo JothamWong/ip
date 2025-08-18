@@ -1,10 +1,13 @@
 package state;
 
-import tasks.Task;
-
 import java.util.Iterator;
 import java.util.List;
 
+import tasks.Task;
+
+/**
+ * Class that represents the tasks in the Pepe application.
+ */
 public class TaskList implements Iterable<Task> {
     private final List<Task> tasks;
 
