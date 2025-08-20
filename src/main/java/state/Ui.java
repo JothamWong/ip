@@ -60,4 +60,31 @@ public class Ui {
         System.out.println(message);
         System.out.println(delimiter);
     }
+
+    /**
+     * * Print the contents of the provided task list.
+     * @param taskList The tasklist whose contents to print
+     */
+    public void displayTaskList(TaskList taskList) {
+        this.displayTaskList("", taskList);
+    }
+
+    /**
+     * Print the provided message, then display the contents of the provided task list
+     * @param message The initial message to display if not empty.
+     * @param taskList The tasklist whose contents to print
+     */
+    public void displayTaskList(String message, TaskList taskList) {
+        System.out.println(delimiter);
+        if (!message.isEmpty()) {
+            System.out.println(message);
+        }
+        StringBuilder messageBuilder = new StringBuilder();
+        for (int i = 0; i < taskList.size(); i++) {
+            messageBuilder.append((i + 1)).append(". ").append(taskList.get(i)).append("\n");
+        }
+        System.out.println(messageBuilder);
+        System.out.println(delimiter);
+
+    }
 }
