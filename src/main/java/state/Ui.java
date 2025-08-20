@@ -85,6 +85,5 @@ public class Ui {
         }
         System.out.println(messageBuilder);
         System.out.println(delimiter);
-
     }
 }

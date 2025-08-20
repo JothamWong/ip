@@ -21,6 +21,14 @@ public abstract class Task {
         this.isDone = isDone;
     }
 
+    /**
+     * Predicate function to check if the Task matches the provided phrase.
+     * @return true if there is a match
+     */
+    public boolean matchesPhrase(String matchPhrase) {
+        return name.contains(matchPhrase);
+    }
+
     public void setDone(boolean done) {
         this.isDone = done;
     }
