@@ -29,10 +29,14 @@ public abstract class Task {
         return this.isDone ? "X" : " ";
     }
 
-    public String getStatusFileIcon() {
+    protected String getStatusFileIcon() {
         return this.isDone ? "1" : "0";
     }
 
+    /**
+     * Getter method for name
+     * @return the name of the abstract Task
+     */
     public String getName() {
         return this.name;
     }
