@@ -27,10 +27,6 @@ public class Pepe {
         this.taskList = new TaskList(this.storage.getTasks());
     }
 
-    public static Pepe getInstance() {
-        return pepe;
-    }
-
     /**
      * Runs the Pepe application.
      */
