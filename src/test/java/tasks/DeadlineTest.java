@@ -1,5 +1,8 @@
 package tasks;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
@@ -7,8 +10,6 @@ import java.time.format.DateTimeParseException;
 import org.junit.jupiter.api.Test;
 
 import misc.PepeException;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class DeadlineTest {
     @Test
@@ -33,5 +34,11 @@ public class DeadlineTest {
         String userInput = "meet Pepe /from 2025-08-16 140";
         PepeException pepeException = assertThrows(PepeException.class, () -> Deadline.fromInput(userInput.split(" ")));
         assertTrue(pepeException.getMessage().contains("Expected deadline date formatted string yyyy-MM-dd HHmm."));
+    }
+
+    @Test
+    public void testDeadlineFailWithTwoByClauseConsecutively() {
+        String userInput = "meet Pepe /by /by 2025-08-16 140";
+        assertThrows(DateTimeParseException.class, () -> Deadline.fromInput(userInput.split(" ")));
     }
 }
