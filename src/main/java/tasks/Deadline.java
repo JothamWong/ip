@@ -14,7 +14,6 @@ public class Deadline extends Task {
 
     private final LocalDateTime by;
 
-
     public Deadline(String name, LocalDateTime by) {
         this(name, by, false);
     }
