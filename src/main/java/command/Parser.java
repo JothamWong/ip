@@ -35,6 +35,7 @@ public class Parser {
             case "todo" -> new AddToListCommand(Todo.fromInput(arguments));
             case "deadline" -> new AddToListCommand(Deadline.fromInput(arguments));
             case "delete" -> DeleteCommand.fromInput(arguments);
+            case "find" -> FindCommand.fromInput(arguments);
             default -> throw new PepeException("Unknown command: " + command);
             };
         } catch (DateTimeParseException e) {
