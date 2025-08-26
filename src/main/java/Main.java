@@ -90,8 +90,8 @@ public class Main extends Application {
         String userText = userInput.getText();
         String pepeText = pepe.getResponse(userText);
         dialogContainer.getChildren().addAll(
-                new DialogBox(userText, userImage),
-                new DialogBox(pepeText, pepeImage)
+                DialogBox.getUserDialog(userText, userImage),
+                DialogBox.getPepeDialog(pepeText, pepeImage)
         );
         userInput.clear();
     }
