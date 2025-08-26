@@ -9,7 +9,7 @@ import tasks.Event;
 import tasks.Todo;
 
 /**
- * Class in charge of parsing all user inputs.
+ * Parser class is in charge of parsing all user inputs.
  */
 public class Parser {
 
