@@ -18,6 +18,8 @@ public class Pepe {
     private final TaskList taskList;
     private final Storage storage;
 
+    private final String welcomeMessage = "Hi Pepe! I am Pepe the Fourth, descendent of Pepe! What can I do for you?";
+
     /**
      * Public constructor to construct an instance of the Pepe application from a file that contains the task list.
      * @param storageFilePath A path to a file that contains the current task list.
@@ -27,6 +29,10 @@ public class Pepe {
         this.storage = new Storage(storageFilePath);
         this.taskList = new TaskList(this.storage.getTasks());
         System.out.println("Pepe constructor was called");
+    }
+
+    public String displayWelcomeMessage() {
+        return welcomeMessage;
     }
 
     /**

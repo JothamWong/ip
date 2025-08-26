@@ -34,6 +34,9 @@ public class MainWindow extends AnchorPane {
     /** Injects the Duke instance */
     public void setPepe(Pepe pepe) {
         this.pepe = pepe;
+        dialogContainer.getChildren().add(
+                DialogBox.getPepeDialog(pepe.displayWelcomeMessage(), pepeImage)
+        );
     }
 
     /**
