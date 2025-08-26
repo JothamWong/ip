@@ -47,4 +47,13 @@ public class Pepe {
         }
     }
 
+    /**
+     * Generates a response for the user's chat response.
+     * @param input the user's inputted response
+     * @return a response to user's message
+     */
+    public String getResponse(String input) {
+        return "Pepe heard: " + input;
+    }
+
 }

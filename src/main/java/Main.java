@@ -19,6 +19,7 @@ public class Main extends Application {
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/happy-pepe.jpg"));
     private Image pepeImage = new Image(this.getClass().getResourceAsStream("/images/swaggy-pepe.jpg"));
+    private Pepe pepe = new Pepe(DEFAULT_FILE_PATH);
 
     private ScrollPane scrollPane;
     private VBox dialogContainer;
@@ -86,7 +87,12 @@ public class Main extends Application {
     }
 
     private void handleUserInput() {
-        dialogContainer.getChildren().addAll(new DialogBox(userInput.getText(), userImage));
+        String userText = userInput.getText();
+        String pepeText = pepe.getResponse(userText);
+        dialogContainer.getChildren().addAll(
+                new DialogBox(userText, userImage),
+                new DialogBox(pepeText, pepeImage)
+        );
         userInput.clear();
     }
 }
