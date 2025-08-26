@@ -1,5 +1,6 @@
 package command;
 
+import javafx.util.Pair;
 import misc.PepeException;
 import state.Storage;
 import state.TaskList;
@@ -36,7 +37,7 @@ public class DeleteCommand implements Command {
     }
 
     @Override
-    public boolean execute(Ui ui, Storage storage, TaskList tasks) throws PepeException {
+    public Pair<String, Boolean> execute(Ui ui, Storage storage, TaskList tasks) throws PepeException {
         if (tasks.size() <= deleteIdx) {
             throw new PepeException("Submitted task idx is out of bounds");
         }
@@ -45,7 +46,6 @@ public class DeleteCommand implements Command {
         storage.saveTasks(tasks);
         String message = "Noted. I've removed this task:\n  %s\nNow you have %d tasks in the list.\n".formatted(task,
                 tasks.size());
-        ui.printMessage(message);
-        return true;
+        return new Pair<>(ui.formatMessage(message), true);
     }
 }

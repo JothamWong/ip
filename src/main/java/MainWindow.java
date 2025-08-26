@@ -1,3 +1,5 @@
+import command.Command;
+import command.Parser;
 import components.DialogBox;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -6,6 +8,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Pair;
+import misc.PepeException;
+import state.Storage;
+import state.TaskList;
+import state.Ui;
 
 /**
  * Controller for the main GUI.
@@ -45,12 +52,29 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
+        Ui ui = pepe.getUi();
+        Storage storage = pepe.getStorage();
+        TaskList taskList = pepe.getTaskList();
+
         String input = userInput.getText();
-        String response = pepe.getResponse(input);
+        String pepeResponse = "";
+        Boolean toContinue = true;
+        try {
+            Command command = Parser.parse(input);
+            Pair<String, Boolean> response = command.execute(ui, storage, taskList);
+            pepeResponse = response.getKey();
+            toContinue = response.getValue();
+        } catch (PepeException e) {
+            pepeResponse = ui.handleException(e);
+        }
+
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getPepeDialog(response, pepeImage)
+                DialogBox.getPepeDialog(pepeResponse, pepeImage)
         );
         userInput.clear();
+        if (!toContinue) {
+            // TODO: Quit
+        }
     }
 }

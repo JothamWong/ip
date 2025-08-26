@@ -36,24 +36,6 @@ public class Pepe {
     }
 
     /**
-     * Runs the Pepe application.
-     */
-    public void run() {
-        ui.displayWelcomeMessage();
-        try (Scanner scanner = new Scanner(System.in)) {
-            boolean keepGoing = true;
-            while (keepGoing) {
-                try {
-                    final Command command = Parser.parse(scanner.nextLine());
-                    keepGoing = command.execute(ui, storage, taskList);
-                } catch (PepeException e) {
-                    ui.handleException(e);
-                }
-            }
-        }
-    }
-
-    /**
      * Generates a response for the user's chat response.
      * @param input the user's inputted response
      * @return a response to user's message
@@ -62,4 +44,27 @@ public class Pepe {
         return "Pepe heard: " + input;
     }
 
+    /**
+     * Getter method for Ui.
+     * @return the Ui for Pepe
+     */
+    public Ui getUi() {
+        return ui;
+    }
+
+    /**
+     * Getter method for task list.
+     * @return the task list for Pepe
+     */
+    public TaskList getTaskList() {
+        return taskList;
+    }
+
+    /**
+     * Getter method for storage.
+     * @return the storage for Pepe
+     */
+    public Storage getStorage() {
+        return storage;
+    }
 }

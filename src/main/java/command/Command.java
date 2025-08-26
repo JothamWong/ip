@@ -1,5 +1,6 @@
 package command;
 
+import javafx.util.Pair;
 import misc.PepeException;
 import state.Storage;
 import state.TaskList;
@@ -10,7 +11,9 @@ import state.Ui;
  */
 public interface Command {
     /**
-     * Executes the command and returns true if the program should continue
+     * Executes the command and returns a pair containing:
+     * the message to display from the javafx UI and a boolean whether to quit the application.
      */
-    boolean execute(Ui ui, Storage storage, TaskList tasks) throws PepeException;
+    Pair<String, Boolean> execute(Ui ui, Storage storage, TaskList tasks) throws PepeException;
 }
+
