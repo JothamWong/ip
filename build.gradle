@@ -44,7 +44,7 @@ test {
 }
 
 application {
-    mainClass.set("Pepe")
+    mainClass.set("Launcher")
 }
 
 checkstyle {
