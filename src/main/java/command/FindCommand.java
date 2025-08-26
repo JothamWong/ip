@@ -2,6 +2,7 @@ package command;
 
 import java.util.StringJoiner;
 
+import javafx.util.Pair;
 import misc.PepeException;
 import state.Storage;
 import state.TaskList;
@@ -37,18 +38,19 @@ public class FindCommand implements Command {
     }
 
     @Override
-    public boolean execute(Ui ui, Storage storage, TaskList tasks) throws PepeException {
+    public Pair<String, Boolean> execute(Ui ui, Storage storage, TaskList tasks) throws PepeException {
         TaskList matchedTaskList = new TaskList();
         for (Task task : tasks) {
             if (task.matchesPhrase(matchPhrase)) {
                 matchedTaskList.add(task);
             }
         }
+        String message;
         if (matchedTaskList.isEmpty()) {
-            ui.printMessage("No tasks match the provided search term: " + matchPhrase);
+            message = ui.formatMessage("No tasks match the provided search term: " + matchPhrase);
         } else {
-            ui.displayTaskList("Here are the matching tasks in your list:", matchedTaskList);
+            message = ui.displayTaskList("Here are the matching tasks in your list:", matchedTaskList);
         }
-        return true;
+        return new Pair<>(message, true);
     }
 }

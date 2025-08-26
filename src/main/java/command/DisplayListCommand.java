@@ -1,5 +1,6 @@
 package command;
 
+import javafx.util.Pair;
 import misc.PepeException;
 import state.Storage;
 import state.TaskList;
@@ -10,8 +11,7 @@ import state.Ui;
  */
 public class DisplayListCommand implements Command {
     @Override
-    public boolean execute(Ui ui, Storage storage, TaskList tasks) throws PepeException {
-        ui.displayTaskList(tasks);
-        return true;
+    public Pair<String, Boolean> execute(Ui ui, Storage storage, TaskList tasks) throws PepeException {
+        return new Pair<>(ui.displayTaskList(tasks), true);
     }
 }

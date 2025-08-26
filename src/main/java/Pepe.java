@@ -1,8 +1,3 @@
-import java.util.Scanner;
-
-import command.Command;
-import command.Parser;
-import misc.PepeException;
 import state.Storage;
 import state.TaskList;
 import state.Ui;
@@ -11,11 +6,14 @@ import state.Ui;
  * The main Pepe application class.
  */
 public class Pepe {
+
     private static Pepe pepe;
 
     private final Ui ui;
     private final TaskList taskList;
     private final Storage storage;
+
+    private final String welcomeMessage = "Hi Pepe! I am Pepe the Fourth, descendent of Pepe! What can I do for you?";
 
     /**
      * Public constructor to construct an instance of the Pepe application from a file that contains the task list.
@@ -25,29 +23,34 @@ public class Pepe {
         this.ui = new Ui();
         this.storage = new Storage(storageFilePath);
         this.taskList = new TaskList(this.storage.getTasks());
+        System.out.println("Pepe constructor was called");
+    }
+
+    public String displayWelcomeMessage() {
+        return welcomeMessage;
     }
 
     /**
-     * Runs the Pepe application.
+     * Getter method for Ui.
+     * @return the Ui for Pepe
      */
-    public void run() {
-        ui.displayWelcomeMessage();
-        try (Scanner scanner = new Scanner(System.in)) {
-            boolean keepGoing = true;
-            while (keepGoing) {
-                try {
-                    final Command command = Parser.parse(scanner.nextLine());
-                    keepGoing = command.execute(ui, storage, taskList);
-                } catch (PepeException e) {
-                    ui.handleException(e);
-                }
-            }
-        }
+    public Ui getUi() {
+        return ui;
     }
 
-    public static void main(String[] args) {
-        // Hardcoded path. Will change if receive complaints
-        pepe = new Pepe("./data/pepe.txt");
-        pepe.run();
+    /**
+     * Getter method for task list.
+     * @return the task list for Pepe
+     */
+    public TaskList getTaskList() {
+        return taskList;
+    }
+
+    /**
+     * Getter method for storage.
+     * @return the storage for Pepe
+     */
+    public Storage getStorage() {
+        return storage;
     }
 }
