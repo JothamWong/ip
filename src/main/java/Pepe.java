@@ -11,21 +11,12 @@ import state.Ui;
  * The main Pepe application class.
  */
 public class Pepe {
-    private static final String DEFAULT_FILE_PATH = "./data/pepe.txt";
 
     private static Pepe pepe;
 
     private final Ui ui;
     private final TaskList taskList;
     private final Storage storage;
-
-    /**
-     * Default constructor to construct an instance of the Pepe application from a file that contains the task list.
-     */
-    public Pepe() {
-        this(DEFAULT_FILE_PATH);
-        System.out.println("Default constructor was called");
-    }
 
     /**
      * Public constructor to construct an instance of the Pepe application from a file that contains the task list.
