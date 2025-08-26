@@ -2,10 +2,6 @@ import java.util.Scanner;
 
 import command.Command;
 import command.Parser;
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.stage.Stage;
 import misc.PepeException;
 import state.Storage;
 import state.TaskList;
@@ -14,7 +10,7 @@ import state.Ui;
 /**
  * The main Pepe application class.
  */
-public class Pepe extends Application {
+public class Pepe {
     private static final String DEFAULT_FILE_PATH = "./data/pepe.txt";
 
     private static Pepe pepe;
@@ -28,6 +24,7 @@ public class Pepe extends Application {
      */
     public Pepe() {
         this(DEFAULT_FILE_PATH);
+        System.out.println("Default constructor was called");
     }
 
     /**
@@ -38,6 +35,7 @@ public class Pepe extends Application {
         this.ui = new Ui();
         this.storage = new Storage(storageFilePath);
         this.taskList = new TaskList(this.storage.getTasks());
+        System.out.println("Pepe constructor was called");
     }
 
     /**
@@ -58,12 +56,4 @@ public class Pepe extends Application {
         }
     }
 
-    @Override
-    public void start(Stage stage) {
-        Label helloWorld = new Label("Hello World");
-        Scene scene = new Scene(helloWorld);
-
-        stage.setScene(scene);
-        stage.show();
-    }
 }
