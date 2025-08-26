@@ -1,8 +1,3 @@
-import java.util.Scanner;
-
-import command.Command;
-import command.Parser;
-import misc.PepeException;
 import state.Storage;
 import state.TaskList;
 import state.Ui;
@@ -33,15 +28,6 @@ public class Pepe {
 
     public String displayWelcomeMessage() {
         return welcomeMessage;
-    }
-
-    /**
-     * Generates a response for the user's chat response.
-     * @param input the user's inputted response
-     * @return a response to user's message
-     */
-    public String getResponse(String input) {
-        return "Pepe heard: " + input;
     }
 
     /**
