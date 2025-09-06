@@ -7,8 +7,6 @@ import state.Ui;
  */
 public class Pepe {
 
-    private static Pepe pepe;
-
     private final Ui ui;
     private final TaskList taskList;
     private final Storage storage;
