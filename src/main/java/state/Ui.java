@@ -32,10 +32,8 @@ public class Ui {
      * @param taskList The tasklist whose contents to print
      */
     public String displayTaskList(String message, TaskList taskList) {
-        if (!message.isEmpty()) {
-            System.out.println(message);
-        }
         StringBuilder messageBuilder = new StringBuilder();
+        messageBuilder.append(message).append("\n");
         for (int i = 0; i < taskList.size(); i++) {
             messageBuilder.append((i + 1)).append(". ").append(taskList.get(i)).append("\n");
         }

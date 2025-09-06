@@ -7,7 +7,6 @@ import misc.PepeException;
 import state.Storage;
 import state.TaskList;
 import state.Ui;
-import tasks.Task;
 
 
 /**
@@ -39,12 +38,7 @@ public class FindCommand implements Command {
 
     @Override
     public Pair<String, Boolean> execute(Ui ui, Storage storage, TaskList tasks) throws PepeException {
-        TaskList matchedTaskList = new TaskList();
-        for (Task task : tasks) {
-            if (task.matchesPhrase(matchPhrase)) {
-                matchedTaskList.add(task);
-            }
-        }
+        TaskList matchedTaskList = tasks.filter(matchPhrase);
         String message;
         if (matchedTaskList.isEmpty()) {
             message = ui.formatMessage("No tasks match the provided search term: " + matchPhrase);

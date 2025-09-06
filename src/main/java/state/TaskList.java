@@ -54,4 +54,14 @@ public class TaskList implements Iterable<Task> {
     public Iterator<Task> iterator() {
         return tasks.iterator();
     }
+
+    /**
+     * Filters the TaskList for tasks that match the provided match phrase.
+     * @param matchPhrase the phrase that task descriptions should match on
+     * @return a TaskList with only tasks that match the match phrase
+     */
+    public TaskList filter(String matchPhrase) {
+        return new TaskList(tasks.stream()
+                .filter(task -> task.matchesPhrase(matchPhrase)).toList());
+    }
 }
