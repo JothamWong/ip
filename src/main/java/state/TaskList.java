@@ -1,6 +1,7 @@
 package state;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -63,5 +64,12 @@ public class TaskList implements Iterable<Task> {
     public TaskList filter(String matchPhrase) {
         return new TaskList(tasks.stream()
                 .filter(task -> task.matchesPhrase(matchPhrase)).toList());
+    }
+
+    /**
+     * Sort the TaskList according to when the tasks are due by. Todos are always at the front.
+     */
+    public void sort() {
+        Collections.sort(tasks);
     }
 }

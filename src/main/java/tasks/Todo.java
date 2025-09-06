@@ -69,4 +69,15 @@ public class Todo extends Task {
     public String toString() {
         return "[T]" + super.toString();
     }
+
+    @Override
+    public int compareTo(Task o) {
+        if (o instanceof Event || o instanceof Deadline) {
+            // Todo has no deadline and is always less than these 2 tasks
+            return -1;
+        } else {
+            // Maintain original ordering with other Todo
+            return 0;
+        }
+    }
 }

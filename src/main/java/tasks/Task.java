@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * Abstract class representing a Task in our Pepe application.
  */
-public abstract class Task {
+public abstract class Task implements Comparable<Task> {
     protected static final DateTimeFormatter SERDE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     protected static final DateTimeFormatter USER_FORMATTER = DateTimeFormatter.ofPattern("MMM d yyyy HH:mm");
 
