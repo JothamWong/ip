@@ -64,6 +64,7 @@ public class DialogBox extends HBox {
      * @return the DialogBox representing Pepe
      */
     public static DialogBox getPepeDialog(String message, Image image) {
+        System.out.println("Pepe dialog is " + message);
         var db = new DialogBox(message, image);
         db.flip();
         return db;
