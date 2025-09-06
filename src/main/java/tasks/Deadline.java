@@ -112,8 +112,8 @@ public class Deadline extends Task {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Deadline deadline = (Deadline) o;
-        return Objects.equals(by, deadline.by);
+        Deadline otherDeadline = (Deadline) o;
+        return Objects.equals(by, otherDeadline.by);
     }
 
     @Override
