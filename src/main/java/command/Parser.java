@@ -23,6 +23,7 @@ public class Parser {
         DEADLINE,
         DELETE,
         FIND,
+        SORT,
     }
     /**
      * Parses a user-input into a command.
@@ -48,6 +49,7 @@ public class Parser {
             case DEADLINE -> new AddToListCommand(Deadline.fromInput(arguments));
             case DELETE -> DeleteCommand.fromInput(arguments);
             case FIND -> FindCommand.fromInput(arguments);
+            case SORT -> new SortCommand();
             };
         } catch (DateTimeParseException e) {
             throw new PepeException("Error parsing datetime: " + e.getMessage());

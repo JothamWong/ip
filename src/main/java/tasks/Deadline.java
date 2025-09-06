@@ -120,4 +120,25 @@ public class Deadline extends Task {
     public int hashCode() {
         return Objects.hashCode(by);
     }
+
+    @Override
+    public int compareTo(Task o) {
+        if (o instanceof Todo) {
+            // A TODO has no deadline and is always going to be lesser than
+            return 1;
+        } else if (o instanceof Deadline otherDeadline) {
+            return by.compareTo(otherDeadline.by);
+        } else {
+            Event event = (Event) o;
+            return by.compareTo(event.getTo());
+        }
+    }
+
+    /**
+     * Getter for by field.
+     * @return by
+     */
+    public LocalDateTime getBy() {
+        return by;
+    }
 }

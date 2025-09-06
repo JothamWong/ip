@@ -131,4 +131,24 @@ public class Event extends Task {
                 from.format(USER_FORMATTER),
                 to.format(USER_FORMATTER));
     }
+
+    /**
+     * Getter method for the to field.
+     * @return to
+     */
+    public LocalDateTime getTo() {
+        return to;
+    }
+
+    @Override
+    public int compareTo(Task o) {
+        if (o instanceof Event otherEvent) {
+            return to.compareTo(otherEvent.to);
+        } else if (o instanceof Deadline deadline) {
+            return to.compareTo(deadline.getBy());
+        } else {
+            // o is a Todo with no deadline and is there always lesser than this Event
+            return 1;
+        }
+    }
 }
