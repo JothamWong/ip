@@ -20,10 +20,10 @@ public class Pepe {
      * @param storageFilePath A path to a file that contains the current task list.
      */
     public Pepe(String storageFilePath) {
+        assert(storageFilePath != null && !storageFilePath.isEmpty());
         this.ui = new Ui();
         this.storage = new Storage(storageFilePath);
         this.taskList = new TaskList(this.storage.getTasks());
-        System.out.println("Pepe constructor was called");
     }
 
     public String displayWelcomeMessage() {
