@@ -7,8 +7,6 @@ import state.Ui;
  */
 public class Pepe {
 
-    private static Pepe pepe;
-
     private final Ui ui;
     private final TaskList taskList;
     private final Storage storage;
@@ -23,7 +21,6 @@ public class Pepe {
         this.ui = new Ui();
         this.storage = new Storage(storageFilePath);
         this.taskList = new TaskList(this.storage.getTasks());
-        System.out.println("Pepe constructor was called");
     }
 
     public String displayWelcomeMessage() {
