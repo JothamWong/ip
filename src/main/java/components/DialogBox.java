@@ -22,7 +22,7 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
 
-    private DialogBox(String message, Image image) {
+    private DialogBox(String message, Image image, String color) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);
@@ -33,7 +33,16 @@ public class DialogBox extends HBox {
         }
 
         dialog.setText(message);
+        dialog.setStyle("-fx-text-fill: %s;".formatted(color));
         displayPicture.setImage(image);
+    }
+
+    public static DialogBox getDialogBox(String message, Image image) {
+        return new DialogBox(message, image, "black");
+    }
+
+    public static DialogBox getErrorDialogBox(String message, Image image) {
+        return new DialogBox(message, image, "red");
     }
 
     /**
@@ -53,7 +62,7 @@ public class DialogBox extends HBox {
      * @return the DialogBox representing the User
      */
     public static DialogBox getUserDialog(String message, Image image) {
-        return new DialogBox(message, image);
+        return DialogBox.getDialogBox(message, image);
     }
 
 
@@ -63,9 +72,14 @@ public class DialogBox extends HBox {
      * @param image representing Pepe
      * @return the DialogBox representing Pepe
      */
-    public static DialogBox getPepeDialog(String message, Image image) {
+    public static DialogBox getPepeDialog(String message, Image image, boolean hasError) {
         System.out.println("Pepe dialog is " + message);
-        var db = new DialogBox(message, image);
+        DialogBox db;
+        if (hasError) {
+            db = DialogBox.getErrorDialogBox(message, image);
+        } else {
+            db = DialogBox.getDialogBox(message, image);
+        }
         db.flip();
         return db;
     }

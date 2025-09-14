@@ -45,7 +45,7 @@ public class MainWindow extends AnchorPane {
     public void setPepe(Pepe pepe) {
         this.pepe = pepe;
         dialogContainer.getChildren().add(
-                DialogBox.getPepeDialog(pepe.displayWelcomeMessage(), pepeImage)
+                DialogBox.getPepeDialog(pepe.displayWelcomeMessage(), pepeImage, false)
         );
     }
 
@@ -62,6 +62,7 @@ public class MainWindow extends AnchorPane {
         String input = userInput.getText();
         String pepeResponse = "";
         Boolean toContinue = true;
+        boolean hasError = false;
         try {
             Command command = Parser.parse(input);
             Pair<String, Boolean> response = command.execute(ui, storage, taskList);
@@ -69,12 +70,14 @@ public class MainWindow extends AnchorPane {
             toContinue = response.getValue();
         } catch (PepeException e) {
             pepeResponse = ui.handleException(e);
+            hasError = true;
         }
 
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getPepeDialog(pepeResponse, pepeImage)
+                DialogBox.getPepeDialog(pepeResponse, pepeImage, hasError)
         );
+
         userInput.clear();
         if (!toContinue) {
             PauseTransition pause = new PauseTransition(Duration.seconds(1));
