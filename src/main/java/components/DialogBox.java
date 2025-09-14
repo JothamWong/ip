@@ -37,10 +37,23 @@ public class DialogBox extends HBox {
         displayPicture.setImage(image);
     }
 
+    /**
+     * Creates the dialog box with black text.
+     * @param message to display
+     * @param image to display
+     * @return DialogBox with black text and image
+     */
     public static DialogBox getDialogBox(String message, Image image) {
         return new DialogBox(message, image, "black");
     }
 
+
+    /**
+     * Creates the dialog box with red text to display errors better.
+     * @param message to display
+     * @param image to display
+     * @return DialogBox with red text and image
+     */
     public static DialogBox getErrorDialogBox(String message, Image image) {
         return new DialogBox(message, image, "red");
     }

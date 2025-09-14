@@ -27,6 +27,10 @@ public class TaskList implements Iterable<Task> {
         this.tasks = tasks;
     }
 
+    /**
+     * Returns the size of the TaskList
+     * @return how many items are in the TaskList
+     */
     public int size() {
         return tasks.size();
     }
@@ -39,14 +43,27 @@ public class TaskList implements Iterable<Task> {
         return tasks.isEmpty();
     }
 
+    /**
+     * Adds the task to the TaskList.
+     * @param task to be added to TaskList
+     */
     public void add(Task task) {
         tasks.add(task);
     }
 
+    /**
+     * Gets the task at the specified index of the TaskList
+     * @param index to get task at
+     * @return the task at the specified index
+     */
     public Task get(int index) {
         return tasks.get(index);
     }
 
+    /**
+     * Removes the task at the specified index of the TaskList
+     * @param index to remove task at
+     */
     public void remove(int index) {
         tasks.remove(index);
     }
