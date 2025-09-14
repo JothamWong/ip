@@ -23,6 +23,9 @@ public class Ui {
      * @param taskList The tasklist whose contents to print
      */
     public String displayTaskList(TaskList taskList) {
+        if (taskList.isEmpty()) {
+            return "You currently do not have any tasks yet!";
+        }
         return this.displayTaskList("", taskList);
     }
 
