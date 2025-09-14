@@ -1,3 +1,4 @@
+import misc.PepeException;
 import state.Storage;
 import state.TaskList;
 import state.Ui;
@@ -17,7 +18,7 @@ public class Pepe {
      * Public constructor to construct an instance of the Pepe application from a file that contains the task list.
      * @param storageFilePath A path to a file that contains the current task list.
      */
-    public Pepe(String storageFilePath) {
+    public Pepe(String storageFilePath) throws PepeException {
         assert(storageFilePath != null && !storageFilePath.isEmpty());
         this.ui = new Ui();
         this.storage = new Storage(storageFilePath);

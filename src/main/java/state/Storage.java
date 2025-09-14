@@ -1,6 +1,7 @@
 package state;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -25,9 +26,10 @@ public class Storage {
      * Deserialize from file path and return the list of tasks, or an empty list otherwise.
      * @return list of tasks stored at the specified file path
      */
-    public List<Task> getTasks() {
+    public List<Task> getTasks() throws PepeException {
         Path path = Paths.get(this.path);
         if (!Files.exists(path)) {
+            createFile();
             return new ArrayList<>();
         }
         try {
@@ -36,6 +38,20 @@ public class Storage {
         } catch (IOException | PepeException e) {
             System.out.println("Error while reading tasks from " + this.path + " : " + e.getMessage());
             return new ArrayList<>();
+        }
+    }
+
+    private void createFile() throws PepeException {
+        File file = new File(this.path);
+        File dir = file.getParentFile();
+        boolean hasCreatedDir = dir.mkdir();
+        if (!hasCreatedDir) {
+            throw new PepeException("Could not create directory " + dir.getAbsolutePath());
+        }
+        try {
+            file.createNewFile();
+        } catch (IOException e) {
+            throw new PepeException("Could not create file " + file.getAbsolutePath() + " because: " + e.getMessage());
         }
     }
 

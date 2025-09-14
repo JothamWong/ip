@@ -10,6 +10,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import misc.PepeException;
 
 /**
  * Main class that wraps around Pepe.
@@ -19,7 +20,7 @@ public class Main extends Application {
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/happy-pepe.jpg"));
     private Image pepeImage = new Image(this.getClass().getResourceAsStream("/images/swaggy-pepe.jpg"));
-    private Pepe pepe = new Pepe(DEFAULT_FILE_PATH);
+    private Pepe pepe;
 
     private ScrollPane scrollPane;
     private VBox dialogContainer;
@@ -27,17 +28,17 @@ public class Main extends Application {
     private Button sendButton;
     private Scene scene;
 
-
     @Override
     public void start(Stage stage) {
         try {
+            pepe = new Pepe(DEFAULT_FILE_PATH);
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setPepe(pepe); // inject the Pepe instance
             stage.show();
-        } catch (IOException e) {
+        } catch (IOException | PepeException e) {
             e.printStackTrace();
         }
     }
