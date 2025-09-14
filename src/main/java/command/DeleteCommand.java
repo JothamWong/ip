@@ -38,7 +38,7 @@ public class DeleteCommand implements Command {
 
     @Override
     public Pair<String, Boolean> execute(Ui ui, Storage storage, TaskList tasks) throws PepeException {
-        if (tasks.size() <= deleteIdx) {
+        if (tasks.size() <= deleteIdx || deleteIdx < 0) {
             throw new PepeException("Submitted task idx is out of bounds");
         }
         Task task = tasks.get(deleteIdx);
