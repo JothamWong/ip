@@ -2,6 +2,7 @@ package tasks;
 
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.StringJoiner;
 
 import misc.PepeException;
@@ -49,8 +50,8 @@ public class Event extends Task {
             throw new PepeException("Empty name for event.");
         }
 
-        // Expect yyyy-MM-dd HHmm after /from
-        if (index + 2 > inputs.length) {
+        // Expect yyyy-MM-dd HHmm and /to after /from
+        if (index + 2 >= inputs.length) {
             throw new PepeException("Expected /from date formatted string yyyy-MM-dd HHmm.");
         }
         String fromString = inputs[index++] + " " + inputs[index++];
@@ -62,11 +63,16 @@ public class Event extends Task {
 
         index++; // skip /to
         // Expect yyyy-MM-dd HHmm after /to
-        if (index + 2 > inputs.length) {
+        if (index + 1 >= inputs.length) {
             throw new PepeException("Expected /to date formatted string yyyy-MM-dd HH:mm");
         }
         String toString = inputs[index++] + " " + inputs[index];
         LocalDateTime toDate = LocalDateTime.parse(toString, SERDE_FORMATTER);
+
+        // Check no more entries afterwards
+        if (index + 1 != inputs.length) {
+            throw new PepeException("Expected format: <task name> /from <from> /to <to>");
+        }
 
         return new Event(name.toString(), fromDate, toDate);
     }
@@ -150,5 +156,19 @@ public class Event extends Task {
             // o is a Todo with no deadline and is there always lesser than this Event
             return 1;
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Event event = (Event) o;
+        return Objects.equals(from, event.from) && Objects.equals(to, event.to);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(from, to);
     }
 }

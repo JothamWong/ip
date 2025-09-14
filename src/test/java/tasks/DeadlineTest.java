@@ -30,6 +30,18 @@ public class DeadlineTest {
     }
 
     @Test
+    public void testDeadlineFailInputMissing() {
+        String userInput = "meet Pepe /by 2025-";
+        assertThrows(PepeException.class, () -> Deadline.fromInput(userInput.split(" ")));
+    }
+
+    @Test
+    public void testDeadlineFailInputMissingTwo() {
+        String userInput = "meet Pepe /by 2025- 1400";
+        assertThrows(DateTimeParseException.class, () -> Deadline.fromInput(userInput.split(" ")));
+    }
+
+    @Test
     public void testDeadlineFailNoByClause() {
         String userInput = "meet Pepe /from 2025-08-16 140";
         PepeException pepeException = assertThrows(PepeException.class, () -> Deadline.fromInput(userInput.split(" ")));
@@ -40,5 +52,11 @@ public class DeadlineTest {
     public void testDeadlineFailWithTwoByClauseConsecutively() {
         String userInput = "meet Pepe /by /by 2025-08-16 140";
         assertThrows(DateTimeParseException.class, () -> Deadline.fromInput(userInput.split(" ")));
+    }
+
+    @Test
+    public void testDeadlineFailWithExtraInput() {
+        String userInput = "meet Pepe /by 2025-08-16 1400 hehe";
+        assertThrows(PepeException.class, () -> Deadline.fromInput(userInput.split(" ")));
     }
 }
