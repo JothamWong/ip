@@ -22,7 +22,7 @@ public abstract class Task implements Comparable<Task> {
     }
 
     /**
-     * Predicate function to check if the Task matches the provided phrase.
+     * Checks if the Task matches the provided phrase.
      * @return true if there is a match
      */
     public boolean matchesPhrase(String matchPhrase) {

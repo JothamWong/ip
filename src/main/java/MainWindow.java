@@ -61,13 +61,13 @@ public class MainWindow extends AnchorPane {
 
         String input = userInput.getText();
         String pepeResponse = "";
-        Boolean toContinue = true;
+        Boolean canContinue = true;
         boolean hasError = false;
         try {
             Command command = Parser.parse(input);
             Pair<String, Boolean> response = command.execute(ui, storage, taskList);
             pepeResponse = response.getKey();
-            toContinue = response.getValue();
+            canContinue = response.getValue();
         } catch (PepeException e) {
             pepeResponse = ui.handleException(e);
             hasError = true;
@@ -79,7 +79,7 @@ public class MainWindow extends AnchorPane {
         );
 
         userInput.clear();
-        if (!toContinue) {
+        if (!canContinue) {
             PauseTransition pause = new PauseTransition(Duration.seconds(1));
             pause.setOnFinished(event -> {
                 Platform.exit();
