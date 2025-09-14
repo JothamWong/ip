@@ -73,7 +73,6 @@ public class DialogBox extends HBox {
      * @return the DialogBox representing Pepe
      */
     public static DialogBox getPepeDialog(String message, Image image, boolean hasError) {
-        System.out.println("Pepe dialog is " + message);
         DialogBox db;
         if (hasError) {
             db = DialogBox.getErrorDialogBox(message, image);
