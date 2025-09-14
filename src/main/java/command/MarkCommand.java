@@ -38,7 +38,7 @@ public class MarkCommand implements Command {
 
     @Override
     public Pair<String, Boolean> execute(Ui ui, Storage storage, TaskList tasks) throws PepeException {
-        if (tasks.size() <= markIdx) {
+        if (tasks.size() <= markIdx || markIdx < 0) {
             throw new PepeException("Submitted task idx is out of bounds");
         }
         Task task = tasks.get(markIdx);

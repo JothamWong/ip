@@ -38,7 +38,7 @@ public class UnmarkCommand implements Command {
 
     @Override
     public Pair<String, Boolean> execute(Ui ui, Storage storage, TaskList tasks) throws PepeException {
-        if (tasks.size() <= unmarkIdx) {
+        if (tasks.size() <= unmarkIdx || unmarkIdx < 0) {
             throw new PepeException("Submitted task idx is out of bounds");
         }
         Task task = tasks.get(unmarkIdx);
