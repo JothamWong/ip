@@ -5,7 +5,7 @@ package misc;
  */
 public class PepeException extends Exception {
     /**
-     * Construct a custom exception for the Pepe application with a specified message.
+     * Constructs a custom exception for the Pepe application with a specified message.
      * @param message A hopefully descriptive exception message
      */
     public PepeException(String message) {

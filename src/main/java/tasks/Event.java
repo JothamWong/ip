@@ -72,7 +72,7 @@ public class Event extends Task {
     }
 
     /**
-     * Deserialize Event fromFileInput.
+     * Deserializes Event fromFileInput.
      * Expected format is {Type} | {Active} | {Name} | {From} | {To}
      * Example: E | 0 | project meeting | 2019-08-6 1400 | 2019-08-6 1600
      * @param inputs List of file inputs delimited by |
