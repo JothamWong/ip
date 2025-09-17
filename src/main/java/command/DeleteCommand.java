@@ -18,7 +18,7 @@ public class DeleteCommand implements Command {
     }
 
     /**
-     * Factory method to construct a DeleteCommand from the user input
+     * Factory method to construct a DeleteCommand from user input
      * @param arguments A list of user-input strings
      * @return An instance of the DeleteCommand
      * @throws PepeException if an exception occurred while parsing user input or constructing DeleteCommand class
