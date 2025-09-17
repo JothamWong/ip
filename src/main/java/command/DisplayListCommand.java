@@ -7,7 +7,7 @@ import state.TaskList;
 import state.Ui;
 
 /**
- * Command to display the current task list stored by Pepe.
+ * Command to display the current task list stored by Pepe application.
  */
 public class DisplayListCommand implements Command {
     @Override
