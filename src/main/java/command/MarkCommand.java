@@ -8,7 +8,7 @@ import state.Ui;
 import tasks.Task;
 
 /**
- * Command to mark a task in the task list as done.
+ * Command to mark a task in the tasklist as done.
  */
 public class MarkCommand implements Command {
     private final int markIdx;
